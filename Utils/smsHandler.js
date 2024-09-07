@@ -1,0 +1,65 @@
+
+// export const smsHandler = async (req , res , next) =>{
+//     try {
+//         const res = await fetch("https://api.limosms.com/api/sendpeertopeersms", {
+//             method: "POST",
+//             headers: {
+//                 ApiKey: process.env.SMS_KEY,
+//                 "Content-Type": "application/json",
+//             },
+//             body: JSON.stringify({
+//                 Message: [message],
+//                 SenderNumber: "10000000002027",
+//                 MobileNumber: [mobileNumber]
+//             }),
+//         })
+//         const data=await res.json()
+//         return data
+//     } 
+//     catch (error) {
+//         return error
+//     }
+// }
+
+
+export const sendAuthCode = async (Mobile) => {
+    try {
+        const res = await fetch('https://api.limosms.com/api/sendcode', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                ApiKey: process.env.SMS_KEY
+            },
+            body: JSON.stringify({
+                Mobile,
+                Footer: 'Anformatic nationallity'
+            })
+        })
+        const data = await res.json()
+        return data
+    }
+    catch (error) {
+        return { success: false, message: 'sending sms is went Wrong!' }
+    }
+}
+
+export const verifyCode = async (Mobile, Code) => {
+    try {
+        const res = await fetch('https://api.limosms.com/api/checkcode', {
+            method: 'POST',
+            headers: {
+                'Content-type': 'application/json',
+                ApiKey: process.env.SMS_KEY
+            },
+            body: JSON.stringify({
+                Mobile,
+                Code
+            })
+        })
+        const data = await res.json()
+        return data
+    }
+    catch (error) {
+        return { success: false, message: 'Error in checking code' }
+    }
+}
