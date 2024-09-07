@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const brandSchema= new mongoose.Schema({
+const brandSchema = new mongoose.Schema({
     name : {
         type : String,
         required : [true , "brand name is required"]
@@ -12,6 +12,5 @@ const brandSchema= new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Category'
     }]
-   
 })
 export const Brand = mongoose.model("Brand" , brandSchema)

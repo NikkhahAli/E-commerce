@@ -7,7 +7,6 @@ import jwt from 'jsonwebtoken'
 import HandleError from './../Utils/handleError.js';
 import { OrderHistory } from '../Models/orderHistoryMd.js'
 
-
 export const validDiscount = async (code, id) => {
     if (!code) {
         return {
@@ -139,7 +138,7 @@ export const checkPayment = catchAsync(async (req, res, next) => {
     }
     else {
         order.status = "failed"
-        order.save()
+        await order.save()
     }
     return res.status(200).json({
         success: resultPayment,

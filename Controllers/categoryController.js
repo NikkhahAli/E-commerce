@@ -31,6 +31,7 @@ export const updateCategory = catchAsync(async (req, res, next) => {
     if (image && image !== categories.image) {
         fs.unlinkSync(`${__dirname}/Public/${categories.image}`)
     }
+    
     const updateData =  image ? req.body : others
     const newCategories = await Category.findByIdAndUpdate(id , updateData ,{new:true,runValidators:true})
     return res.status(200).json({

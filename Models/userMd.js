@@ -5,7 +5,7 @@ const cartSchema = new mongoose.Schema({ // سبد خرید
         type: Number,
         default: 0,
         min: 0,
-        
+
     },
     item: {
         type: [
@@ -56,9 +56,9 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     recentlyProduct: {
-        type : [{
-            type: mongoose.Schema.Types.ObjectId ,
-            ref : "Product"
+        type: [{
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product"
         }]
     },
     usedDiscountCode: {
@@ -79,19 +79,19 @@ const userSchema = new mongoose.Schema({
     },
     isComplete: {
         type: Boolean,
-        deafult : false
+        deafult: false
     },
-    role : {
-        type : String ,
-        enum : ["admin" , "user" , "superAdmin"],
-        default : "user"
+    role: {
+        type: String,
+        enum: ["admin", "user", "superAdmin"],
+        default: "user"
     },
-    cart : cartSchema,
-    boughtProductId : {
-        type : mongoose.Schema.Types.ObjectId ,
-        ref : "Product"
+    cart: { type: cartSchema, default: { totalPrice: 0, item: [] } },
+    boughtProductId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product"
     },
-    
-},{timestamps:true})
+
+}, { timestamps: true })
 
 export const User = mongoose.model("User", userSchema)

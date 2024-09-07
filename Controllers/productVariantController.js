@@ -25,13 +25,15 @@ export const getProductVariant = catchAsync(async (req, res, next) => {
 export const updateProductVariant = catchAsync(async (req, res, next) => {
     const { id } = req.params
     const { image = '', ...others } = req.body
+
     const productVariant = await ProductVariant.findById(id)
 
     if (image && image !== productVariant.image) {
-        fs.unlink(`${__dirname}/Public/${productVariant.image}`)
+        fs.unlinkSync(`${__dirname}/Public/${productVariant.image}`)
     }
 
     const updateData = image ? req.body : others
+    
     const newproductVariant = await ProductVariant.findByIdAndUpdate(id, updateData, { new: true, runValidators: true })
 
     return res.status(200).json({
@@ -40,6 +42,7 @@ export const updateProductVariant = catchAsync(async (req, res, next) => {
         data: newproductVariant
     })
 })
+
 
 export const createProductVariant = catchAsync(async (req, res, next) => {
     const productVariant = await ProductVariant.create(req.body)
